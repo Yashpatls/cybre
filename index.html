@@ -1,0 +1,2117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberShield - Stop Cyberbullying</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #1e88e5;
+            --secondary: #1565c0;
+            --accent: #ff4081;
+            --light: #e3f2fd;
+            --dark: #0d47a1;
+            --success: #4caf50;
+            --warning: #ff9800;
+            --danger: #f44336;
+        }
+
+        body {
+            background: linear-gradient(135deg, #bbdefb, #90caf9);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Authentication Pages */
+        .auth-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            padding: 2rem 0;
+        }
+
+        .auth-box {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            padding: 2rem;
+        }
+
+        .auth-header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .auth-header h2 {
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+            font-size: 1.5rem;
+        }
+
+        .auth-header p {
+            color: #666;
+        }
+
+        .auth-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .auth-logo i {
+            color: var(--accent);
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #555;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary);
+            outline: none;
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: var(--secondary);
+        }
+
+        .btn-accent {
+            background: var(--accent);
+        }
+
+        .btn-accent:hover {
+            background: #e91e63;
+        }
+
+        .auth-footer {
+            text-align: center;
+            margin-top: 1rem;
+            color: #666;
+        }
+
+        .auth-footer a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .auth-footer a:hover {
+            text-decoration: underline;
+        }
+
+        .error-message {
+            background: #ffebee;
+            color: var(--danger);
+            padding: 8px 12px;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        .success-message {
+            background: #e8f5e9;
+            color: #2e7d32;
+            padding: 8px 12px;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        /* Main App */
+        #main-app {
+            display: none;
+        }
+
+        /* Header Styles */
+        header {
+            background: var(--primary);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .logo i {
+            color: white;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem;
+            border-radius: 4px;
+        }
+
+        nav a:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .user-avatar {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--primary);
+            cursor: pointer;
+        }
+
+        .logout-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Floating Post Button */
+        .floating-post-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--accent);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 3px 10px rgba(255, 64, 129, 0.4);
+            cursor: pointer;
+            z-index: 99;
+            transition: all 0.3s ease;
+        }
+
+        .floating-post-btn:hover {
+            transform: scale(1.1);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .modal-header h2 {
+            color: var(--secondary);
+            font-size: 1.3rem;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.3rem;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .close-modal:hover {
+            color: var(--danger);
+        }
+
+        /* Profile Section */
+        .profile-section {
+            display: none;
+            padding: 2rem 0;
+        }
+
+        .profile-header {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            margin: 0 auto 1rem;
+        }
+
+        .profile-name {
+            font-size: 1.5rem;
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .profile-email {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .profile-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        /* Problem Cards */
+        .problems-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .problem-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1.2rem;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            border-left: 4px solid var(--primary);
+        }
+
+        .problem-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .problem-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.8rem;
+        }
+
+        .problem-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .problem-type {
+            color: white;
+            padding: 3px 8px;
+            border-radius: 15px;
+            font-size: 0.7rem;
+            font-weight: 500;
+        }
+
+        .problem-author {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .author-avatar {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: bold;
+        }
+
+        .author-name {
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        .problem-date {
+            font-size: 0.7rem;
+            color: #999;
+            margin-left: auto;
+        }
+
+        .problem-description {
+            color: #555;
+            margin-bottom: 1.2rem;
+            line-height: 1.5;
+            font-size: 0.9rem;
+        }
+
+        .problem-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .solution-btn {
+            background: var(--success);
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: background 0.3s ease;
+        }
+
+        .solution-btn:hover {
+            background: #3d8b40;
+        }
+
+        /* Solution Modal */
+        .solution-content {
+            background: #e8f5e9;
+            padding: 1.2rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+
+        .solution-content h3 {
+            color: #2e7d32;
+            margin-bottom: 0.8rem;
+            font-size: 1.1rem;
+        }
+
+        .solution-content ul {
+            padding-left: 1.2rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .solution-content li {
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: var(--primary);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(255, 64, 129, 0.3);
+        }
+
+        /* Stats Section */
+        .stats {
+            background: rgba(255, 255, 255, 0.7);
+            padding: 2rem 0;
+            backdrop-filter: blur(5px);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 1.5rem 1rem;
+            border-radius: 8px;
+            background: white;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .stat-card i {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 0.8rem;
+        }
+
+        .stat-card h3 {
+            font-size: 2rem;
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-card p {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        /* Reviews Section */
+        .reviews {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(5px);
+            padding: 2rem 0;
+        }
+
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .review-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .review-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .review-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .review-info h4 {
+            color: var(--secondary);
+            margin-bottom: 0.2rem;
+        }
+
+        .review-rating {
+            color: #ff9800;
+            font-size: 0.9rem;
+        }
+
+        .review-text {
+            color: #555;
+            font-style: italic;
+            line-height: 1.5;
+        }
+
+        /* Feedback Form */
+        .feedback-form {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            margin-top: 2rem;
+        }
+
+        .rating-stars {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .star {
+            font-size: 1.5rem;
+            color: #ddd;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .star.active {
+            color: #ff9800;
+        }
+
+        /* Indian Government Resources */
+        .government-resources {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 2rem 0;
+        }
+
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .resource-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .resource-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .resource-icon {
+            background: var(--primary);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin: 0 auto 1rem;
+        }
+
+        .resource-card h3 {
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .resource-card p {
+            color: #666;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .resource-number {
+            background: var(--accent);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            display: inline-block;
+        }
+
+        .resource-link {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 500;
+            margin-top: 0.5rem;
+            transition: background 0.3s ease;
+        }
+
+        .resource-link:hover {
+            background: var(--secondary);
+        }
+
+        /* Info Sections */
+        .section {
+            padding: 3rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .section-title h2 {
+            font-size: 2rem;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+
+        .section-title p {
+            max-width: 700px;
+            margin: 0 auto;
+            color: #555;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .info-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-header {
+            background: var(--primary);
+            color: white;
+            padding: 1.2rem;
+            text-align: center;
+        }
+
+        .card-header i {
+            font-size: 1.5rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .card-body {
+            padding: 1.2rem;
+        }
+
+        .card-body ul {
+            list-style: none;
+            margin-top: 0.8rem;
+        }
+
+        .card-body li {
+            margin-bottom: 0.5rem;
+            padding-left: 1.2rem;
+            position: relative;
+            font-size: 0.9rem;
+        }
+
+        .card-body li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: bold;
+        }
+
+        /* Resources Section */
+        .resources {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(5px);
+        }
+
+        .resource-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .resource-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .resource-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .resource-icon {
+            background: var(--primary);
+            color: white;
+            padding: 1.2rem;
+            text-align: center;
+            font-size: 1.5rem;
+        }
+
+        .resource-content {
+            padding: 1.2rem;
+        }
+
+        .resource-content h3 {
+            margin-bottom: 0.8rem;
+            color: var(--secondary);
+            font-size: 1.1rem;
+        }
+
+        .resource-content p {
+            margin-bottom: 1rem;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .resource-link {
+            display: inline-block;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .resource-link:hover {
+            color: var(--secondary);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 2rem 0 1rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-column h3 {
+            margin-bottom: 1rem;
+            color: #bbdefb;
+            font-size: 1.1rem;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column li {
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .footer-column a {
+            color: #e3f2fd;
+            text-decoration: none;
+        }
+
+        .footer-column a:hover {
+            color: white;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 0.8rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 35px;
+            height: 35px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: background 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--primary);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #bbdefb;
+            font-size: 0.8rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            nav ul {
+                flex-direction: column;
+                text-align: center;
+                gap: 0.8rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .section {
+                padding: 2rem 0;
+            }
+
+            .section-title h2 {
+                font-size: 1.5rem;
+            }
+
+            .user-info {
+                margin-top: 1rem;
+            }
+
+            .problems-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .floating-post-btn {
+                bottom: 15px;
+                right: 15px;
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+            }
+
+            .profile-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Authentication Pages -->
+    <div id="auth-container" class="auth-container">
+        <!-- Login Form -->
+        <div id="login-form" class="auth-box">
+            <div class="auth-logo">
+                <i class="fas fa-shield-alt"></i>
+                <span>CyberShield</span>
+            </div>
+            <div class="auth-header">
+                <h2>Welcome Back</h2>
+                <p>Sign in to your account to continue</p>
+            </div>
+            
+            <div id="login-error" class="error-message">
+                Invalid email or password. Please try again.
+            </div>
+            
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="login-email">Email Address</label>
+                    <input type="email" id="login-email" class="form-control" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" class="form-control" placeholder="Enter your password" required>
+                </div>
+                <button type="submit" class="btn">Sign In</button>
+            </form>
+            
+            <div class="auth-footer">
+                <p>Don't have an account? <a href="#" id="show-register">Sign up here</a></p>
+            </div>
+        </div>
+
+        <!-- Register Form -->
+        <div id="register-form" class="auth-box" style="display: none;">
+            <div class="auth-logo">
+                <i class="fas fa-shield-alt"></i>
+                <span>CyberShield</span>
+            </div>
+            <div class="auth-header">
+                <h2>Create Account</h2>
+                <p>Join our community to fight cyberbullying</p>
+            </div>
+            
+            <div id="register-error" class="error-message">
+                Please fill all fields correctly.
+            </div>
+            
+            <div id="register-success" class="success-message">
+                Account created successfully! You can now sign in.
+            </div>
+            
+            <form id="registerForm">
+                <div class="form-group">
+                    <label for="register-name">Full Name</label>
+                    <input type="text" id="register-name" class="form-control" placeholder="Enter your full name" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-email">Email Address</label>
+                    <input type="email" id="register-email" class="form-control" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-password">Password</label>
+                    <input type="password" id="register-password" class="form-control" placeholder="Create a password" required minlength="6">
+                </div>
+                <div class="form-group">
+                    <label for="register-confirm">Confirm Password</label>
+                    <input type="password" id="register-confirm" class="form-control" placeholder="Confirm your password" required>
+                </div>
+                <button type="submit" class="btn btn-accent">Create Account</button>
+            </form>
+            
+            <div class="auth-footer">
+                <p>Already have an account? <a href="#" id="show-login">Sign in here</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main App -->
+    <div id="main-app">
+        <!-- Header -->
+        <header>
+            <div class="container">
+                <div class="header-content">
+                    <div class="logo">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>CyberShield</span>
+                    </div>
+                    <nav>
+                        <ul>
+                            <li><a href="#home">Home</a></li>
+                            <li><a href="#community">Community</a></li>
+                            <li><a href="#government">Government Help</a></li>
+                            <li><a href="#reviews">Reviews</a></li>
+                            <li><a href="#resources">Resources</a></li>
+                            <li><a href="#" id="profile-link">Profile</a></li>
+                        </ul>
+                    </nav>
+                    <div class="user-info">
+                        <div class="user-avatar" id="user-avatar">U</div>
+                        <span id="user-name">User</span>
+                        <button class="logout-btn" id="logout-btn">Logout</button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Floating Post Button -->
+        <div class="floating-post-btn" id="post-btn">
+            <i class="fas fa-plus"></i>
+        </div>
+
+        <!-- Post Problem Modal -->
+        <div class="modal" id="post-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Share Your Cyberbullying Experience</h2>
+                    <button class="close-modal" id="close-post-modal">&times;</button>
+                </div>
+                <form id="problem-form">
+                    <div class="form-group">
+                        <label for="problem-title">Problem Title</label>
+                        <input type="text" id="problem-title" class="form-control" placeholder="Brief title of your problem" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="problem-type">Type of Cyberbullying</label>
+                        <select id="problem-type" class="form-control" required>
+                            <option value="">Select type</option>
+                            <option value="Harassment">Bullying or Mean Messages</option>
+                            <option value="Impersonation">Fake Account or Identity</option>
+                            <option value="Exclusion">Leaving Someone Out Online</option>
+                            <option value="Outing">Sharing Private Info or Secrets</option>
+                            <option value="Cyberstalking">Constant Online Following or Watching</option>
+                            <option value="Flaming">Online Arguments or Fights</option>
+                            <option value="Denigration">Spreading False or Hurtful Rumors</option>
+                            <option value="Other">Something Else</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="problem-description">Problem Description</label>
+                        <textarea id="problem-description" class="form-control" rows="4" placeholder="Describe your experience in detail..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-accent">Submit Problem</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Solution Modal -->
+        <div class="modal" id="solution-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Solution & Advice</h2>
+                    <button class="close-modal" id="close-solution-modal">&times;</button>
+                </div>
+                <div id="solution-content">
+                    <!-- Solution will be dynamically inserted here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Feedback Modal -->
+        <div class="modal" id="feedback-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Share Your Feedback</h2>
+                    <button class="close-modal" id="close-feedback-modal">&times;</button>
+                </div>
+                <form id="feedback-form">
+                    <div class="form-group">
+                        <label for="feedback-name">Your Name (Optional)</label>
+                        <input type="text" id="feedback-name" class="form-control" placeholder="Enter your name">
+                    </div>
+                    <div class="form-group">
+                        <label>Your Rating</label>
+                        <div class="rating-stars">
+                            <span class="star" data-rating="1">★</span>
+                            <span class="star" data-rating="2">★</span>
+                            <span class="star" data-rating="3">★</span>
+                            <span class="star" data-rating="4">★</span>
+                            <span class="star" data-rating="5">★</span>
+                        </div>
+                        <input type="hidden" id="feedback-rating" value="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="feedback-text">Your Feedback</label>
+                        <textarea id="feedback-text" class="form-control" rows="4" placeholder="Share your experience with CyberShield..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-accent">Submit Feedback</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Profile Section -->
+        <section class="profile-section" id="profile">
+            <div class="container">
+                <div class="profile-header">
+                    <div class="profile-avatar" id="profile-avatar">U</div>
+                    <h2 class="profile-name" id="profile-name">User Name</h2>
+                    <p class="profile-email" id="profile-email">user@example.com</p>
+                    <div class="profile-stats">
+                        <div class="stat-item">
+                            <div class="stat-value" id="problems-count">0</div>
+                            <div class="stat-label">Problems Posted</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" id="solutions-count">0</div>
+                            <div class="stat-label">Solutions Viewed</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" id="member-since">0</div>
+                            <div class="stat-label">Days as Member</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section-title">
+                    <h2>Your Recent Problems</h2>
+                </div>
+                <div class="problems-grid" id="user-problems-container">
+                    <!-- User's problems will be dynamically inserted here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Hero Section -->
+        <section class="hero" id="home">
+            <div class="container">
+                <div class="hero-content">
+                    <h1>Together We Can Stop Cyberbullying</h1>
+                    <p>CyberShield provides resources, support, and education to combat online harassment and create safer digital spaces for everyone.</p>
+                    <a href="#community" class="cta-button">See Community Problems</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Community Problems Section -->
+        <section class="section" id="community">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Community Problems</h2>
+                    <p>Share your experiences and get support from our community. Click the + button to share your story.</p>
+                </div>
+                <div class="problems-grid" id="problems-container">
+                    <!-- Problems will be dynamically inserted here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Indian Government Resources -->
+        <section class="section government-resources" id="government">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Indian Government Helplines</h2>
+                    <p>Contact these official helplines for immediate assistance with cyberbullying in India</p>
+                </div>
+                <div class="resources-grid">
+                    <div class="resource-card">
+                        <div class="resource-icon">
+                            <i class="fas fa-laptop-code"></i>
+                        </div>
+                        <h3>Cyber Crime Helpline</h3>
+                        <p>Report cyber crimes including online harassment and cyberbullying</p>
+                        <div class="resource-number">155260</div>
+                    </div>
+                    <div class="resource-card">
+                        <div class="resource-icon">
+                            <i class="fas fa-female"></i>
+                        </div>
+                        <h3>Women Helpline</h3>
+                        <p>24/7 support for women facing online harassment and abuse</p>
+                        <div class="resource-number">1091</div>
+                    </div>
+                    <div class="resource-card">
+                        <div class="resource-icon">
+                            <i class="fas fa-child"></i>
+                        </div>
+                        <h3>Child Helpline</h3>
+                        <p>Specialized support for children and teenagers facing cyberbullying</p>
+                        <div class="resource-number">1098</div>
+                    </div>
+                    <div class="resource-card">
+                        <div class="resource-icon">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <h3>Police Helpline</h3>
+                        <p>Emergency police assistance for serious cyberbullying cases</p>
+                        <div class="resource-number">100</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Reviews Section -->
+        <section class="section reviews" id="reviews">
+            <div class="container">
+                <div class="section-title">
+                    <h2>User Reviews</h2>
+                    <p>See what our community members are saying about CyberShield</p>
+                    <button class="btn btn-accent" id="add-review-btn" style="margin-top: 1rem;">Add Your Review</button>
+                </div>
+                <div class="reviews-grid" id="reviews-container">
+                    <!-- Reviews will be dynamically inserted here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section class="section" id="about">
+            <div class="container">
+                <div class="section-title">
+                    <h2>What is Cyberbullying?</h2>
+                    <p>Cyberbullying is bullying that takes place over digital devices like cell phones, computers, and tablets.</p>
+                </div>
+                <div class="info-grid">
+                    <div class="info-card">
+                        <div class="card-header">
+                            <i class="fas fa-comment-slash"></i>
+                            <h3>Harassment</h3>
+                        </div>
+                        <div class="card-body">
+                            <p>Sending offensive, rude, and insulting messages to someone repeatedly.</p>
+                            <ul>
+                                <li>Repeated hurtful messages</li>
+                                <li>Name-calling and insults</li>
+                                <li>Threatening language</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <div class="card-header">
+                            <i class="fas fa-user-secret"></i>
+                            <h3>Impersonation</h3>
+                        </div>
+                        <div class="card-body">
+                            <p>Pretending to be someone else and sending or posting material to damage that person's reputation.</p>
+                            <ul>
+                                <li>Creating fake profiles</li>
+                                <li>Posting as someone else</li>
+                                <li>Sharing false information</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <div class="card-header">
+                            <i class="fas fa-ban"></i>
+                            <h3>Exclusion</h3>
+                        </div>
+                        <div class="card-body">
+                            <p>Intentionally leaving someone out of an online group, conversation, or activity.</p>
+                            <ul>
+                                <li>Being left out of group chats</li>
+                                <li>Purposely excluding from online games</li>
+                                <li>Ignoring someone's messages</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Resources Section -->
+        <section class="section resources" id="resources">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Resources & Support</h2>
+                    <p>Find helpful resources for dealing with cyberbullying.</p>
+                </div>
+                <div class="resource-grid">
+                    <div class="resource-card">
+                        <div class="resource-icon">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                        <div class="resource-content">
+                            <h3>Cyber Crime Portal</h3>
+                            <p>Official Indian government portal for reporting cyber crimes including cyberbullying.</p>
+                            <a href="https://cybercrime.gov.in" target="_blank" class="resource-link">Visit Website <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                    <div class="resource-card">
+                        <div class="resource-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div class="resource-content">
+                            <h3>Cyber Safe India</h3>
+                            <p>Educational resources and tips for staying safe online in India.</p>
+                            <a href="https://www.cert-in.org.in" target="_blank" class="resource-link">Visit Website <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                    <div class="resource-card">
+                        <div class="resource-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <div class="resource-content">
+                            <h3>Digital Literacy</h3>
+                            <p>Government initiatives for digital literacy and online safety education.</p>
+                            <a href="https://www.digitalindia.gov.in" target="_blank" class="resource-link">Visit Website <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer id="contact">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-column">
+                        <h3>CyberShield</h3>
+                        <p>Creating safer digital spaces through education, support, and community action.</p>
+                    </div>
+                    <div class="footer-column">
+                        <h3>Quick Links</h3>
+                        <ul>
+                            <li><a href="#home">Home</a></li>
+                            <li><a href="#community">Community</a></li>
+                            <li><a href="#government">Government Help</a></li>
+                            <li><a href="#resources">Resources</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3>Support Resources</h3>
+                        <ul>
+                            <li><a href="#">Cyber Crime Helpline: 155260</a></li>
+                            <li><a href="#">Women Helpline: 1091</a></li>
+                            <li><a href="#">Child Helpline: 1098</a></li>
+                            <li><a href="#">Police Helpline: 100</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="copyright">
+                    <p>&copy; 2023 CyberShield. All rights reserved.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Check if user is already logged in
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            if (currentUser) {
+                showMainApp(currentUser);
+                loadProblems();
+                loadReviews();
+            }
+        });
+
+        // DOM Elements
+        const authContainer = document.getElementById('auth-container');
+        const loginForm = document.getElementById('login-form');
+        const registerForm = document.getElementById('register-form');
+        const mainApp = document.getElementById('main-app');
+        const loginError = document.getElementById('login-error');
+        const registerError = document.getElementById('register-error');
+        const registerSuccess = document.getElementById('register-success');
+        const showRegisterLink = document.getElementById('show-register');
+        const showLoginLink = document.getElementById('show-login');
+        const loginFormElement = document.getElementById('loginForm');
+        const registerFormElement = document.getElementById('registerForm');
+        const logoutBtn = document.getElementById('logout-btn');
+        const userAvatar = document.getElementById('user-avatar');
+        const userName = document.getElementById('user-name');
+        const postBtn = document.getElementById('post-btn');
+        const postModal = document.getElementById('post-modal');
+        const closePostModal = document.getElementById('close-post-modal');
+        const problemForm = document.getElementById('problem-form');
+        const problemsContainer = document.getElementById('problems-container');
+        const solutionModal = document.getElementById('solution-modal');
+        const closeSolutionModal = document.getElementById('close-solution-modal');
+        const solutionContent = document.getElementById('solution-content');
+        const profileLink = document.getElementById('profile-link');
+        const profileSection = document.getElementById('profile');
+        const profileAvatar = document.getElementById('profile-avatar');
+        const profileName = document.getElementById('profile-name');
+        const profileEmail = document.getElementById('profile-email');
+        const problemsCount = document.getElementById('problems-count');
+        const solutionsCount = document.getElementById('solutions-count');
+        const memberSince = document.getElementById('member-since');
+        const userProblemsContainer = document.getElementById('user-problems-container');
+        const reviewsContainer = document.getElementById('reviews-container');
+        const addReviewBtn = document.getElementById('add-review-btn');
+        const feedbackModal = document.getElementById('feedback-modal');
+        const closeFeedbackModal = document.getElementById('close-feedback-modal');
+        const feedbackForm = document.getElementById('feedback-form');
+        const stars = document.querySelectorAll('.star');
+        const feedbackRating = document.getElementById('feedback-rating');
+
+        // Color mapping for cyberbullying types
+        const typeColors = {
+            'Harassment': '#f44336',
+            'Impersonation': '#ff9800',
+            'Exclusion': '#2196f3',
+            'Outing': '#9c27b0',
+            'Cyberstalking': '#795548',
+            'Flaming': '#ff5722',
+            'Denigration': '#607d8b',
+            'Other': '#4caf50'
+        };
+
+        // Sample reviews data
+        const sampleReviews = [
+            {
+                name: 'Priya Sharma',
+                rating: '★★★★★',
+                text: 'CyberShield helped me deal with online harassment. The community support was amazing!'
+            },
+            {
+                name: 'Rahul Kumar',
+                rating: '★★★★☆',
+                text: 'Great platform for sharing experiences. The solutions provided were practical and helpful.'
+            },
+            {
+                name: 'Anjali Patel',
+                rating: '★★★★★',
+                text: 'As a parent, this website helped me understand what my daughter was going through and how to support her.'
+            },
+            {
+                name: 'Vikram Singh',
+                rating: '★★★★☆',
+                text: 'The Indian government helpline information was very useful. Thank you for this resource!'
+            }
+        ];
+
+        // Star rating functionality
+        stars.forEach(star => {
+            star.addEventListener('click', function() {
+                const rating = this.getAttribute('data-rating');
+                feedbackRating.value = rating;
+                
+                stars.forEach(s => {
+                    if (s.getAttribute('data-rating') <= rating) {
+                        s.classList.add('active');
+                    } else {
+                        s.classList.remove('active');
+                    }
+                });
+            });
+        });
+
+        // Show Register Form
+        showRegisterLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            loginForm.style.display = 'none';
+            registerForm.style.display = 'block';
+            registerError.style.display = 'none';
+            registerSuccess.style.display = 'none';
+        });
+
+        // Show Login Form
+        showLoginLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            registerForm.style.display = 'none';
+            loginForm.style.display = 'block';
+            loginError.style.display = 'none';
+        });
+
+        // Handle Login
+        loginFormElement.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            
+            // Get users from localStorage
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+            
+            // Find user with matching email and password
+            const user = users.find(u => u.email === email && u.password === password);
+            
+            if (user) {
+                // Save current user to localStorage
+                localStorage.setItem('currentUser', JSON.stringify(user));
+                showMainApp(user);
+                loadProblems();
+                loadReviews();
+            } else {
+                loginError.style.display = 'block';
+            }
+        });
+
+        // Handle Registration
+        registerFormElement.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('register-name').value;
+            const email = document.getElementById('register-email').value;
+            const password = document.getElementById('register-password').value;
+            const confirmPassword = document.getElementById('register-confirm').value;
+            
+            // Validate passwords match
+            if (password !== confirmPassword) {
+                registerError.textContent = "Passwords do not match.";
+                registerError.style.display = 'block';
+                return;
+            }
+            
+            // Get existing users from localStorage
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+            
+            // Check if email already exists
+            if (users.some(u => u.email === email)) {
+                registerError.textContent = "An account with this email already exists.";
+                registerError.style.display = 'block';
+                return;
+            }
+            
+            // Create new user
+            const newUser = {
+                name: name,
+                email: email,
+                password: password,
+                joinDate: new Date().toISOString(),
+                problemsPosted: 0,
+                solutionsViewed: 0
+            };
+            
+            // Add to users array and save to localStorage
+            users.push(newUser);
+            localStorage.setItem('users', JSON.stringify(users));
+            
+            // Show success message and switch to login form
+            registerSuccess.style.display = 'block';
+            registerError.style.display = 'none';
+            
+            // Clear form
+            registerFormElement.reset();
+            
+            // Switch to login form after a delay
+            setTimeout(() => {
+                registerForm.style.display = 'none';
+                loginForm.style.display = 'block';
+            }, 2000);
+        });
+
+        // Handle Logout
+        logoutBtn.addEventListener('click', function() {
+            localStorage.removeItem('currentUser');
+            showAuthForms();
+        });
+
+        // Show Main App after login
+        function showMainApp(user) {
+            authContainer.style.display = 'none';
+            mainApp.style.display = 'block';
+            
+            // Update user info in header
+            userAvatar.textContent = user.name.charAt(0).toUpperCase();
+            userName.textContent = user.name;
+            
+            // Update profile section
+            updateProfile(user);
+        }
+
+        // Show Auth Forms (for logout)
+        function showAuthForms() {
+            authContainer.style.display = 'flex';
+            mainApp.style.display = 'none';
+            loginForm.style.display = 'block';
+            registerForm.style.display = 'none';
+            loginError.style.display = 'none';
+            registerError.style.display = 'none';
+            registerSuccess.style.display = 'none';
+            
+            // Clear forms
+            loginFormElement.reset();
+            registerFormElement.reset();
+        }
+
+        // Post Button Click
+        postBtn.addEventListener('click', function() {
+            postModal.style.display = 'flex';
+        });
+
+        // Close Post Modal
+        closePostModal.addEventListener('click', function() {
+            postModal.style.display = 'none';
+        });
+
+        // Close Solution Modal
+        closeSolutionModal.addEventListener('click', function() {
+            solutionModal.style.display = 'none';
+        });
+
+        // Add Review Button Click
+        addReviewBtn.addEventListener('click', function() {
+            feedbackModal.style.display = 'flex';
+        });
+
+        // Close Feedback Modal
+        closeFeedbackModal.addEventListener('click', function() {
+            feedbackModal.style.display = 'none';
+        });
+
+        // Handle Feedback Form Submission
+        feedbackForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('feedback-name').value || 'Anonymous';
+            const rating = document.getElementById('feedback-rating').value;
+            const text = document.getElementById('feedback-text').value;
+            
+            if (rating === '0') {
+                alert('Please select a rating');
+                return;
+            }
+            
+            // Create review object
+            const review = {
+                name: name,
+                rating: '★'.repeat(rating) + '☆'.repeat(5 - rating),
+                text: text,
+                date: new Date().toLocaleDateString()
+            };
+            
+            // Get existing reviews from localStorage
+            const reviews = JSON.parse(localStorage.getItem('reviews')) || [];
+            
+            // Add new review and save to localStorage
+            reviews.push(review);
+            localStorage.setItem('reviews', JSON.stringify(reviews));
+            
+            // Close modal and reset form
+            feedbackModal.style.display = 'none';
+            feedbackForm.reset();
+            
+            // Reset stars
+            stars.forEach(star => {
+                star.classList.remove('active');
+            });
+            feedbackRating.value = '0';
+            
+            // Reload reviews
+            loadReviews();
+            
+            // Show success message
+            alert('Thank you for your feedback!');
+        });
+
+        // Profile Link Click
+        profileLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            // Hide all sections
+            document.querySelectorAll('section').forEach(section => {
+                section.style.display = 'none';
+            });
+            // Show profile section
+            profileSection.style.display = 'block';
+            
+            // Update profile data
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            if (currentUser) {
+                updateProfile(currentUser);
+                loadUserProblems(currentUser.email);
+            }
+        });
+
+        // Handle Problem Form Submission
+        problemForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const title = document.getElementById('problem-title').value;
+            const type = document.getElementById('problem-type').value;
+            const description = document.getElementById('problem-description').value;
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            
+            // Create problem object
+            const problem = {
+                id: Date.now(),
+                title: title,
+                type: type,
+                description: description,
+                author: currentUser.name,
+                authorEmail: currentUser.email,
+                date: new Date().toLocaleString()
+            };
+            
+            // Get existing problems from localStorage
+            const problems = JSON.parse(localStorage.getItem('problems')) || [];
+            
+            // Add new problem and save to localStorage
+            problems.push(problem);
+            localStorage.setItem('problems', JSON.stringify(problems));
+            
+            // Update user's problem count
+            updateUserProblemCount(currentUser.email);
+            
+            // Close modal and reset form
+            postModal.style.display = 'none';
+            problemForm.reset();
+            
+            // Reload problems
+            loadProblems();
+            
+            // Show success message
+            alert('Your problem has been submitted successfully!');
+        });
+
+        // Load Problems from localStorage
+        function loadProblems() {
+            const problems = JSON.parse(localStorage.getItem('problems')) || [];
+            problemsContainer.innerHTML = '';
+            
+            if (problems.length === 0) {
+                problemsContainer.innerHTML = '<p style="text-align: center; grid-column: 1/-1; color: #666;">No problems shared yet. Be the first to share your experience!</p>';
+                return;
+            }
+            
+            // Sort problems by ID (newest first)
+            problems.sort((a, b) => b.id - a.id);
+            
+            // Create problem cards
+            problems.forEach(problem => {
+                const problemCard = document.createElement('div');
+                problemCard.className = 'problem-card';
+                
+                // Set border color based on problem type
+                const typeColor = typeColors[problem.type] || typeColors['Other'];
+                problemCard.style.borderLeftColor = typeColor;
+                
+                problemCard.innerHTML = `
+                    <div class="problem-header">
+                        <div>
+                            <div class="problem-title">${problem.title}</div>
+                            <div class="problem-type" style="background: ${typeColor}">${problem.type}</div>
+                        </div>
+                    </div>
+                    <div class="problem-author">
+                        <div class="author-avatar">${problem.author.charAt(0).toUpperCase()}</div>
+                        <div class="author-name">${problem.author}</div>
+                        <div class="problem-date">${problem.date}</div>
+                    </div>
+                    <div class="problem-description">${problem.description}</div>
+                    <div class="problem-actions">
+                        <button class="solution-btn" data-id="${problem.id}">Get Solution</button>
+                    </div>
+                `;
+                problemsContainer.appendChild(problemCard);
+            });
+            
+            // Add event listeners to solution buttons
+            document.querySelectorAll('.solution-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    const problemId = parseInt(this.getAttribute('data-id'));
+                    showSolution(problemId);
+                });
+            });
+        }
+
+        // Load User Problems
+        function loadUserProblems(userEmail) {
+            const problems = JSON.parse(localStorage.getItem('problems')) || [];
+            const userProblems = problems.filter(p => p.authorEmail === userEmail);
+            userProblemsContainer.innerHTML = '';
+            
+            if (userProblems.length === 0) {
+                userProblemsContainer.innerHTML = '<p style="text-align: center; grid-column: 1/-1; color: #666;">You haven\'t posted any problems yet.</p>';
+                return;
+            }
+            
+            // Sort problems by ID (newest first)
+            userProblems.sort((a, b) => b.id - a.id);
+            
+            // Create problem cards
+            userProblems.forEach(problem => {
+                const problemCard = document.createElement('div');
+                problemCard.className = 'problem-card';
+                
+                // Set border color based on problem type
+                const typeColor = typeColors[problem.type] || typeColors['Other'];
+                problemCard.style.borderLeftColor = typeColor;
+                
+                problemCard.innerHTML = `
+                    <div class="problem-header">
+                        <div>
+                            <div class="problem-title">${problem.title}</div>
+                            <div class="problem-type" style="background: ${typeColor}">${problem.type}</div>
+                        </div>
+                    </div>
+                    <div class="problem-author">
+                        <div class="author-avatar">${problem.author.charAt(0).toUpperCase()}</div>
+                        <div class="author-name">You</div>
+                        <div class="problem-date">${problem.date}</div>
+                    </div>
+                    <div class="problem-description">${problem.description}</div>
+                    <div class="problem-actions">
+                        <button class="solution-btn" data-id="${problem.id}">Get Solution</button>
+                    </div>
+                `;
+                userProblemsContainer.appendChild(problemCard);
+            });
+            
+            // Add event listeners to solution buttons
+            document.querySelectorAll('.solution-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    const problemId = parseInt(this.getAttribute('data-id'));
+                    showSolution(problemId);
+                });
+            });
+        }
+
+        // Update User Problem Count
+        function updateUserProblemCount(userEmail) {
+            const problems = JSON.parse(localStorage.getItem('problems')) || [];
+            const userProblems = problems.filter(p => p.authorEmail === userEmail);
+            
+            // Update user data
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+            const userIndex = users.findIndex(u => u.email === userEmail);
+            
+            if (userIndex !== -1) {
+                users[userIndex].problemsPosted = userProblems.length;
+                localStorage.setItem('users', JSON.stringify(users));
+                
+                // Update current user in localStorage
+                const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                if (currentUser && currentUser.email === userEmail) {
+                    currentUser.problemsPosted = userProblems.length;
+                    localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                }
+            }
+        }
+
+        // Update Profile
+        function updateProfile(user) {
+            profileAvatar.textContent = user.name.charAt(0).toUpperCase();
+            profileName.textContent = user.name;
+            profileEmail.textContent = user.email;
+            
+            // Calculate days as member
+            const joinDate = new Date(user.joinDate);
+            const today = new Date();
+            const daysSinceJoin = Math.floor((today - joinDate) / (1000 * 60 * 60 * 24));
+            memberSince.textContent = daysSinceJoin;
+            
+            // Set problem count
+            problemsCount.textContent = user.problemsPosted || 0;
+            
+            // Set solutions viewed count
+            solutionsCount.textContent = user.solutionsViewed || 0;
+        }
+
+        // Show Solution for a Problem
+        function showSolution(problemId) {
+            const problems = JSON.parse(localStorage.getItem('problems')) || [];
+            const problem = problems.find(p => p.id === problemId);
+            
+            if (!problem) return;
+            
+            // Generate solution based on problem type
+            const solution = generateSolution(problem);
+            
+            // Display solution in modal
+            solutionContent.innerHTML = `
+                <h3>Problem: ${problem.title}</h3>
+                <p><strong>Type:</strong> ${problem.type}</p>
+                <p><strong>Description:</strong> ${problem.description}</p>
+                <div class="solution-content">
+                    <h3>Recommended Solution & Advice</h3>
+                    ${solution}
+                </div>
+            `;
+            
+            solutionModal.style.display = 'flex';
+            
+            // Update user's solutions viewed count
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            if (currentUser) {
+                const users = JSON.parse(localStorage.getItem('users')) || [];
+                const userIndex = users.findIndex(u => u.email === currentUser.email);
+                
+                if (userIndex !== -1) {
+                    users[userIndex].solutionsViewed = (users[userIndex].solutionsViewed || 0) + 1;
+                    localStorage.setItem('users', JSON.stringify(users));
+                    
+                    // Update current user
+                    currentUser.solutionsViewed = users[userIndex].solutionsViewed;
+                    localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                    
+                    // Update profile display
+                    updateProfile(currentUser);
+                }
+            }
+        }
+
+        // Load Reviews
+        function loadReviews() {
+            const storedReviews = JSON.parse(localStorage.getItem('reviews')) || [];
+            const allReviews = [...sampleReviews, ...storedReviews];
+            reviewsContainer.innerHTML = '';
+            
+            if (allReviews.length === 0) {
+                reviewsContainer.innerHTML = '<p style="text-align: center; grid-column: 1/-1; color: #666;">No reviews yet. Be the first to share your feedback!</p>';
+                return;
+            }
+            
+            allReviews.forEach(review => {
+                const reviewCard = document.createElement('div');
+                reviewCard.className = 'review-card';
+                reviewCard.innerHTML = `
+                    <div class="review-header">
+                        <div class="review-avatar">${review.name.charAt(0).toUpperCase()}</div>
+                        <div class="review-info">
+                            <h4>${review.name}</h4>
+                            <div class="review-rating">${review.rating}</div>
+                        </div>
+                    </div>
+                    <div class="review-text">"${review.text}"</div>
+                    ${review.date ? `<div style="font-size: 0.8rem; color: #999; margin-top: 0.5rem;">${review.date}</div>` : ''}
+                `;
+                reviewsContainer.appendChild(reviewCard);
+            });
+        }
+
+        // Generate Solution Based on Problem Type
+        function generateSolution(problem) {
+            let solution = '';
+            
+            switch(problem.type) {
+                case 'Harassment':
+                    solution = `
+                        <p>Dealing with harassment can be overwhelming. Here are some steps you can take:</p>
+                        <ul>
+                            <li><strong>Don't respond:</strong> Responding may encourage the harasser</li>
+                            <li><strong>Block the person:</strong> Use platform blocking features immediately</li>
+                            <li><strong>Save evidence:</strong> Take screenshots of all harassing messages</li>
+                            <li><strong>Report to platform:</strong> Use the reporting features on the social media platform</li>
+                            <li><strong>Tell someone:</strong> Share what's happening with a trusted adult or friend</li>
+                        </ul>
+                    `;
+                    break;
+                    
+                case 'Impersonation':
+                    solution = `
+                        <p>Someone pretending to be you is a serious violation. Take these steps:</p>
+                        <ul>
+                            <li><strong>Report the account:</strong> Immediately report the fake profile to the platform</li>
+                            <li><strong>Gather evidence:</strong> Document everything with screenshots</li>
+                            <li><strong>Notify your contacts:</strong> Let friends know about the impersonation</li>
+                            <li><strong>Check privacy settings:</strong> Review and strengthen your account security</li>
+                        </ul>
+                    `;
+                    break;
+                    
+                case 'Exclusion':
+                    solution = `
+                        <p>Being intentionally excluded can be painful. Here's how to cope:</p>
+                        <ul>
+                            <li><strong>Recognize your worth:</strong> Your value isn't determined by others' actions</li>
+                            <li><strong>Find inclusive communities:</strong> Seek out groups where you feel welcome</li>
+                            <li><strong>Talk about your feelings:</strong> Share with someone you trust how this makes you feel</li>
+                            <li><strong>Focus on genuine connections:</strong> Nurture relationships with people who respect you</li>
+                        </ul>
+                    `;
+                    break;
+                    
+                default:
+                    solution = `
+                        <p>Here are general strategies for dealing with cyberbullying:</p>
+                        <ul>
+                            <li><strong>Don't respond:</strong> Bullies often want a reaction</li>
+                            <li><strong>Save evidence:</strong> Keep records of all incidents</li>
+                            <li><strong>Block the bully:</strong> Use platform blocking features</li>
+                            <li><strong>Report the behavior:</strong> Notify platform administrators</li>
+                            <li><strong>Talk to someone:</strong> Share with a trusted adult, friend, or counselor</li>
+                        </ul>
+                    `;
+            }
+            
+            return solution;
+        }
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('nav a:not(#profile-link)').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                document.querySelector(targetId).scrollIntoView({
+                    behavior: 'smooth'
+                });
+                
+                // Show all sections and hide profile
+                document.querySelectorAll('section').forEach(section => {
+                    section.style.display = 'block';
+                });
+                profileSection.style.display = 'none';
+            });
+        });
+
+        // Close modals when clicking outside
+        window.addEventListener('click', function(e) {
+            if (e.target === postModal) {
+                postModal.style.display = 'none';
+            }
+            if (e.target === solutionModal) {
+                solutionModal.style.display = 'none';
+            }
+            if (e.target === feedbackModal) {
+                feedbackModal.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
