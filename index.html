@@ -88,6 +88,7 @@
             transition: transform 0.4s ease, box-shadow 0.4s ease;
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
+            color: white; /* Added white text for login page */
         }
 
         .auth-box:hover {
@@ -101,13 +102,13 @@
         }
 
         .auth-header h2 {
-            color: var(--secondary);
+            color: white; /* Changed to white */
             margin-bottom: 0.5rem;
             font-size: 1.5rem;
         }
 
         .auth-header p {
-            color: #666;
+            color: rgba(255, 255, 255, 0.8); /* Changed to white with transparency */
         }
 
         .auth-logo {
@@ -118,7 +119,7 @@
             margin-bottom: 1rem;
             font-size: 1.5rem;
             font-weight: 700;
-            color: var(--primary);
+            color: white; /* Changed to white */
         }
 
         .auth-logo i {
@@ -140,24 +141,29 @@
             display: block;
             margin-bottom: 0.5rem;
             font-weight: 500;
-            color: #555;
+            color: white; /* Changed to white */
         }
 
         .form-control {
             width: 100%;
             padding: 12px 15px;
-            border: 1px solid #ddd;
+            border: 1px solid rgba(255, 255, 255, 0.3); /* Changed border color */
             border-radius: 10px;
             font-size: 1rem;
             transition: all 0.3s ease;
-            background: rgba(255, 255, 255, 0.8);
+            background: rgba(255, 255, 255, 0.1); /* Changed background */
+            color: white; /* Changed text color to white */
+        }
+
+        .form-control::placeholder {
+            color: rgba(255, 255, 255, 0.7); /* Changed placeholder color */
         }
 
         .form-control:focus {
-            border-color: var(--primary);
+            border-color: white; /* Changed focus border color */
             outline: none;
-            background: white;
-            box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.2);
+            background: rgba(255, 255, 255, 0.15); /* Changed focus background */
+            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.2); /* Changed focus shadow */
         }
 
         .btn {
@@ -227,11 +233,11 @@
         .auth-footer {
             text-align: center;
             margin-top: 1rem;
-            color: #666;
+            color: rgba(255, 255, 255, 0.8); /* Changed to white with transparency */
         }
 
         .auth-footer a {
-            color: var(--primary);
+            color: white; /* Changed to white */
             text-decoration: none;
             font-weight: 500;
             transition: all 0.3s ease;
@@ -239,7 +245,7 @@
         }
 
         .auth-footer a:hover {
-            color: var(--secondary);
+            color: rgba(255, 255, 255, 0.9); /* Slightly darker white on hover */
         }
 
         .auth-footer a::after {
@@ -261,7 +267,7 @@
         }
 
         .error-message {
-            background: #ffebee;
+            background: rgba(255, 235, 238, 0.9); /* Slightly transparent for glass effect */
             color: var(--danger);
             padding: 10px 15px;
             border-radius: 10px;
@@ -271,7 +277,7 @@
         }
 
         .success-message {
-            background: #e8f5e9;
+            background: rgba(232, 245, 233, 0.9); /* Slightly transparent for glass effect */
             color: #2e7d32;
             padding: 10px 15px;
             border-radius: 10px;
@@ -289,7 +295,7 @@
         header {
             background: var(--glass-bg);
             border-bottom: 1px solid var(--glass-border);
-            color: white;
+            color: rgb(9, 8, 8);
             padding: 1rem 0;
             position: sticky;
             top: 0;
@@ -400,13 +406,22 @@
             box-shadow: 0 4px 10px rgba(108, 99, 255, 0.3);
         }
 
+        /* Updated Logout Button */
         .logout-btn {
-            background: rgba(255, 255, 255, 0.2);
+            background: var(--gradient-2); /* Changed to accent gradient */
             color: white;
             border: none;
             padding: 8px 15px;
-            border-radius: 6px;
+            border-radius: 8px;
             cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            box-shadow: 0 3px 8px rgba(255, 101, 132, 0.3);
+        }
+
+        .logout-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 12px rgba(255, 101, 132, 0.4);
         }
 
         /* Floating Post Button */
